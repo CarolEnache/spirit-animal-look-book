@@ -45,7 +45,14 @@ class App extends Component {
         <header className="App--header">
           <h1>Social Animals</h1>
         </header>
-        <SignIn />
+        {
+          user ?
+          <div>
+            <CurrentUser user={user}/>
+          </div>
+          :
+          <SignIn />
+        }
       </div>
     );
   }
