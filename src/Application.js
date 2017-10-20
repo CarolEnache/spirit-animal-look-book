@@ -19,13 +19,14 @@ class App extends Component {
   }
 
   componentDidMount() {
+    debugger
     auth.onAuthStateChanged((user)=>{
       if (user) {
         this.setState({ user });
         this.usersRef = database.ref('/users');
         this.userRef = this.userRef.child(user.uid);
         this.userRef.once('value').them((snapshot) => {
-          if(snapshot.val()) retrun;
+          if(snapshot.val()) return;
           const userData = pick(user, ['displayName', 'photoURL', 'email'])
           this.userRef.set(userData);
         });
@@ -50,8 +51,8 @@ class App extends Component {
           <div>
             <CurrentUser user={user}/>
           </div>
-          :
-          <SignIn />
+              :
+            <SignIn />
         }
       </div>
     );
