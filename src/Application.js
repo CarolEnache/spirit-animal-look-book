@@ -30,7 +30,7 @@ class App extends Component {
           this.userRef.set(userData);
         });
 
-        this.userRef.on('value', (snapshot)=> {
+        this.usersRef.on('value', (snapshot)=> {
           this.setState({users: snapshot.val() });
         });
       }
@@ -39,26 +39,24 @@ class App extends Component {
 
   render() {
     const { user, users } = this.state;
-
     return (
       <div className="App">
         <header className="App--header">
           <h1>Social Animals</h1>
         </header>
         {
-          user ?
-          <div>
-            <section className='ProfileCards'>
-              {
-                map(users, (user, uid) => {
-                  return <ProfileCard key={uid} user={user} uid={uid} />
-                })
-              }
-            </section>
-            <CurrentUser user={user}/>
-          </div>
-              :
-            <SignIn />
+          user 
+          ? <div>
+              <section className='ProfileCards'>
+                {
+                  map(users, (user, uid) => {
+                    return <ProfileCard key={uid} user={user} uid={uid} />
+                  })
+                }
+              </section>
+              <CurrentUser user={user}/>
+            </div> 
+          : <SignIn />
         }
       </div>
     );
