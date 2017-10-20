@@ -6,6 +6,11 @@ import './ProfileCard.css';
 class ProfileCard extends Component {
   constructor(props) {
     super(props);
+
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  handleSubmit(event){
+    const file = event.target.files[0]
   }
 
   render() {
@@ -17,6 +22,11 @@ class ProfileCard extends Component {
           src={photoURL}
         />
         <h3>{displayName}</h3>
+        <FileInput
+          accept='.jpg, .jpef, .gif, .sgv'
+          placeholder='pick file'
+          onChange={this.handleSubmit}
+        />
       </article>
     );
   }
