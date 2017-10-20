@@ -19,13 +19,12 @@ class App extends Component {
   }
 
   componentDidMount() {
-    debugger
     auth.onAuthStateChanged((user)=>{
       if (user) {
         this.setState({ user });
         this.usersRef = database.ref('/users');
-        this.userRef = this.userRef.child(user.uid);
-        this.userRef.once('value').them((snapshot) => {
+        this.userRef = this.usersRef.child(user.uid);
+        this.userRef.once('value').then((snapshot) => {
           if(snapshot.val()) return;
           const userData = pick(user, ['displayName', 'photoURL', 'email'])
           this.userRef.set(userData);
@@ -49,6 +48,13 @@ class App extends Component {
         {
           user ?
           <div>
+            <section className='ProfileCards'>
+              {
+                map(users, (user, uid) => {
+                  return <ProfileCard key={uid} user={user} uid={uid} />
+                })
+              }
+            </section>
             <CurrentUser user={user}/>
           </div>
               :
